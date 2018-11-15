@@ -2,13 +2,33 @@ const BusinessCompanies = require('../models/business_model');
 
 class BusinessCompanyService {
   async createCompany(data, cb) {
-    this.displayName = data.displayName;
-    const name = this.displayName.toLowerCase();
+    const { displayName } = data;
+    const name = displayName.toLowerCase();
     this.makeNameUnique(name, async (newName) => {
-      const newCompany = new BusinessCompanies({ displayName: this.displayName, name: newName });
-      const savedCompany = await newCompany.save();
-      cb(null, savedCompany);
+      const newCompany = new BusinessCompanies({ displayName, name: newName });
+      try {
+        const savedCompany = await newCompany.save();
+        cb(null, savedCompany);
+      } catch (e) {
+        cb(e);
+      }
     });
+  }
+
+  async updateCompany(_id, data, cb) {
+    this.displayName = data.displayName;
+    if (this.displayName === '') {
+      cb('Name is empty');
+    }
+    try {
+      await BusinessCompanies.update({ _id }, {
+        displayName: this.displayName,
+      },
+      { upsert: true });
+      cb(null, true);
+    } catch (e) {
+      cb(e);
+    }
   }
 
   async makeNameUnique(name, cb) {

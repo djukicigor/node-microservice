@@ -11,7 +11,10 @@ app.use(bodyParser.json());
 
 app.post('/api/create-company', (req, res) => {
   companyService.createCompany(req.body, (err, data) => {
-    if (!err) {
+    if (err) {
+      res.status(500).send({ error: err });
+      throw new Error(err);
+    } else {
       res.json(data);
     }
   });
@@ -19,7 +22,10 @@ app.post('/api/create-company', (req, res) => {
 
 app.post('/api/update-company/:id', (req, res) => {
   companyService.updateCompany(req.params.id, req.body, (err, data) => {
-    if (!err) {
+    if (err) {
+      res.status(500).send({ error: err });
+      throw new Error(err);
+    } else {
       res.json(data);
     }
   });
