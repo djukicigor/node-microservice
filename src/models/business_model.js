@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const uuid = require('node-uuid');
 
 const { Schema } = mongoose;
 
@@ -18,10 +17,7 @@ const usersSchema = new Schema({
 
 const workspacesSchema = new Schema({
   _id: {
-    type: Schema.Types.ObjectId,
-    default: () => {
-      uuid.v1();
-    },
+    type: String,
     index: true,
   },
   displayName: {
@@ -30,7 +26,6 @@ const workspacesSchema = new Schema({
   },
   name: {
     type: String,
-    unique: true,
     required: true,
     lowercase: true,
   },
@@ -40,8 +35,7 @@ const workspacesSchema = new Schema({
 const BusinessCompaniesSchema = new Schema({
   _id: {
     type: String,
-    index: true,
-    default: uuid.v1(),
+    index: { unique: true },
   },
   displayName: {
     type: String,
@@ -49,7 +43,7 @@ const BusinessCompaniesSchema = new Schema({
   },
   name: {
     type: String,
-    unique: true,
+    index: { unique: true },
     required: true,
     lowercase: true,
   },
