@@ -28,7 +28,7 @@ class WorkspaceService {
     });
   }
 
-  async updateWorkspace(companyId, workspaceId, data, cb) {
+  async updateWorkspace(workspaceId, data, cb) {
     const { displayName } = data;
 
     if (displayName === '') {
@@ -36,7 +36,7 @@ class WorkspaceService {
     }
 
     try {
-      await BusinessCompanies.update({ _id: companyId }, {
+      await BusinessCompanies.update({ 'workspaces._id': workspaceId }, {
         $set: {
           'workspaces.$[elem].displayName': displayName,
         },
