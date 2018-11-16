@@ -44,4 +44,16 @@ app.post('/api/create-workspace/:companyId', (req, res) => {
   });
 });
 
+app.post('/api/update-workspace/:companyId/:workspaceId', (req, res) => {
+  const { companyId, workspaceId } = req.params;
+  workService.updateWorkspace(companyId, workspaceId, req.body, (err, data) => {
+    if (err) {
+      res.status(500).send({ error: err });
+      throw new Error(err);
+    } else {
+      res.json(data);
+    }
+  });
+});
+
 module.exports = app;

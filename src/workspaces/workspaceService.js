@@ -16,10 +16,10 @@ class WorkspaceService {
         await BusinessCompanies.update({
           _id: companyId,
         }, {
-            $push: {
-              workspaces: newWorkspace,
-            },
-          });
+          $push: {
+            workspaces: newWorkspace,
+          },
+        });
 
         cb(null, newWorkspace);
       } catch (e) {
@@ -28,7 +28,7 @@ class WorkspaceService {
     });
   }
 
-  async editWorkspace(companyId, workspaceId, data, cb) {
+  async updateWorkspace(companyId, workspaceId, data, cb) {
     const { displayName } = data;
 
     if (displayName === '') {
