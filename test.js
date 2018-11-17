@@ -74,7 +74,7 @@ describe('Unit tests', function () {
       });
     });
     it('should update workspace', function (done) {
-      workService.updateWorkspace(workspaceId, { displayName: 'Updated Workspace' }, function (err, data) {
+      workService.updateWorkspace(workspaceId, { displayName: 'Updated Workspace' }, function (err) {
         if (err) {
           done(err);
         }
@@ -97,7 +97,7 @@ describe('Unit tests', function () {
   });
   describe('User tests', function () {
     it('should add user into workspace', function (done) {
-      userService.addUserToWorkspace(workspaceId, { email: 'test@mail.com', role: 'basic' }, function (err, data) {
+      userService.addUserToWorkspace(workspaceId, { email: 'test@mail.com', role: 'basic' }, function (err) {
         if (err) {
           done(err);
         }
